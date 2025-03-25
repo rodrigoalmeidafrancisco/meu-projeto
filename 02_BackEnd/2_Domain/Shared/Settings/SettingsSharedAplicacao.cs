@@ -7,6 +7,7 @@
             AcessoPolicy = [];
         }
 
+        public string _Ambiente { get; set; }
         public string _Build { get; set; }
         public string _Release { get; set; }
         public List<string> AcessoPolicy { get; set; }

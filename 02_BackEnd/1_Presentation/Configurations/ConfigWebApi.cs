@@ -1,4 +1,5 @@
 ﻿using ElmahCore.Mvc;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.IdentityModel.Logging;
@@ -22,7 +23,7 @@ namespace WebApi.Configurations
             builder.Logging.ClearProviders().AddConsole();
 
             //Obtendo as configurações da API "appsettings"
-            SettingsShared.Start(builder.Configuration, builder.Services, builder.Environment.WebRootPath);
+            SettingApp.Start(builder.Configuration, builder.Environment.WebRootPath);
 
             //Configura os parâmetros do System.Text.Json para o Retorno da API   
             builder.Services.AddControllers().AddJsonOptions(options =>
@@ -49,10 +50,10 @@ namespace WebApi.Configurations
             //};
 
             //Configura a utilização do Application Insights
-            //builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions()
-            //{
-            //    ConnectionString = "" //Chave de conexão do Application Insights
-            //});
+            builder.Services.AddApplicationInsightsTelemetry(new ApplicationInsightsServiceOptions()
+            {
+                ConnectionString = SettingApp.ApplicationInsights.InstrumentationKey
+            });
 
             //Comprime o Json no Retorno da API, diminuindo o seu tamanho
             builder.Services.AddResponseCompression(options =>

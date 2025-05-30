@@ -8,7 +8,7 @@ using Developer.ExtensionCore;
 
 namespace WebApi.Configurations
 {
-    public static class ConfigWebApiAppInsights
+    public static class ConfigWebApiApplicationInsights
     {
         /// <summary>
         /// Adiciona as dependências da Telemetria
@@ -36,12 +36,12 @@ namespace WebApi.Configurations
                 {
                     if (telemetry.Context.Cloud != null && telemetry.Context.Cloud.RoleName.IsNullOrEmptyOrWhiteSpace())
                     {
-                        telemetry.Context.Cloud.RoleName = $"{SettingsShared.Aplicacao.NomeAplicacao} (WebApi) - {SettingsShared.Aplicacao._Ambiente}";
+                        telemetry.Context.Cloud.RoleName = $"{SettingApp.Aplicacao.NomeAplicacao} (WebApi) - {SettingApp.Aplicacao._Ambiente}";
                     }
 
-                    telemetry.Context.GlobalProperties["Ambiente"] = SettingsShared.Aplicacao._Ambiente;
-                    telemetry.Context.GlobalProperties["Build"] = SettingsShared.Aplicacao._Build;
-                    telemetry.Context.GlobalProperties["Release"] = SettingsShared.Aplicacao._Release;
+                    telemetry.Context.GlobalProperties["Ambiente"] = SettingApp.Aplicacao._Ambiente;
+                    telemetry.Context.GlobalProperties["Build"] = SettingApp.Aplicacao._Build;
+                    telemetry.Context.GlobalProperties["Release"] = SettingApp.Aplicacao._Release;
                 }
 
                 if (telemetry is RequestTelemetry requestTelemetry)

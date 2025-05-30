@@ -1,8 +1,8 @@
 ﻿namespace Shared.Settings
 {
-    public class SettingsSharedAppSettings
+    public class SettingAppAppSettings
     {
-        public SettingsSharedAppSettings()
+        public SettingAppAppSettings()
         {
 
         }

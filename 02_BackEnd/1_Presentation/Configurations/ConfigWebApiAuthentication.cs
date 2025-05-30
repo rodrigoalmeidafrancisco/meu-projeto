@@ -17,23 +17,23 @@ namespace WebApi.Configurations
             })
             .AddJwtBearer(x =>
             {
-                x.Authority = SettingsShared.Aplicacao._Ambiente;
+                x.Authority = SettingApp.Aplicacao._Ambiente;
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes($"{SettingsShared.Aplicacao._Ambiente}{DtoConstantes.ChaveToken}")),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes($"{SettingApp.Aplicacao._Ambiente}{DtoConstantes.ChaveToken}")),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
             });
 
             //Configuração dos "scope" de acesso e "apolicy" na aplicação
-            if (SettingsShared.Aplicacao.AcessoPolicyLista.Any())
+            if (SettingApp.Aplicacao.AcessoPolicyLista.Any())
             {
                 builder.Services.AddAuthorization(options =>
                 {
-                    SettingsShared.Aplicacao.AcessoPolicyLista.ForEach(item => { options.AddPolicy(item.Key, policy => { policy.RequireClaim("scope", item.Value); }); });
+                    SettingApp.Aplicacao.AcessoPolicyLista.ForEach(item => { options.AddPolicy(item.Key, policy => { policy.RequireClaim("scope", item.Value); }); });
                 });
             }
         }

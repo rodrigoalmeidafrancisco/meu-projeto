@@ -16,36 +16,48 @@ namespace Shared.Helpers
 
         public static void AddTrackEvent(string phrase, Dictionary<string, string> propertiesLog = null, Dictionary<string, double> metricsLog = null)
         {
-            metricsLog = metricsLog ?? new Dictionary<string, double>();
-            propertiesLog = propertiesLog ?? new Dictionary<string, string>();
+            metricsLog = metricsLog ?? [];
+            propertiesLog = propertiesLog ?? [];
             _telemetryClient?.TrackEvent($"{phrase}", propertiesLog, metricsLog);
         }
 
         public static void AddTrackEvent<Then>(string phrase, CommandResult<Then> commandResult, Dictionary<string, string> propertiesLog = null, Dictionary<string, double> metricsLog = null)
         {
-            metricsLog = metricsLog ?? new Dictionary<string, double>();
-            propertiesLog = propertiesLog ?? new Dictionary<string, string>();
+            metricsLog = metricsLog ?? [];
+            propertiesLog = propertiesLog ?? [];
 
             if (commandResult != null)
             {
                 propertiesLog["Result.Sucesso"] = commandResult.Sucesso.ToString();
                 propertiesLog["Result.Mensagem"] = commandResult.Mensagem;
-                propertiesLog["Result.TempoTotalExecucao"] = commandResult.TempoTotalRequisicao;
             }
 
             AddTrackEvent($"{phrase}", propertiesLog, metricsLog);
         }
 
-        public static void AddTrackEvent<Then>(Exception exception, CommandResult<Then> commandResult, Dictionary<string, string> propertiesLog = null, Dictionary<string, double> metricsLog = null)
+        public static void AddTrackEventException<Then>(string phrase, CommandResult<Then> commandResult, Dictionary<string, string> propertiesLog = null, Dictionary<string, double> metricsLog = null)
         {
-            metricsLog = metricsLog ?? new Dictionary<string, double>();
-            propertiesLog = propertiesLog ?? new Dictionary<string, string>();
+            metricsLog = metricsLog ?? [];
+            propertiesLog = propertiesLog ?? [];
 
             if (commandResult != null)
             {
                 propertiesLog["Result.Sucesso"] = commandResult.Sucesso.ToString();
                 propertiesLog["Result.Mensagem"] = commandResult.Mensagem;
-                propertiesLog["Result.TempoTotalExecucao"] = commandResult.TempoTotalRequisicao;
+            }
+
+            _telemetryClient?.TrackException(new Exception(phrase), propertiesLog, metricsLog);
+        }
+
+        public static void AddTrackEventException<Then>(Exception exception, CommandResult<Then> commandResult, Dictionary<string, string> propertiesLog = null, Dictionary<string, double> metricsLog = null)
+        {
+            metricsLog = metricsLog ?? [];
+            propertiesLog = propertiesLog ?? [];
+
+            if (commandResult != null)
+            {
+                propertiesLog["Result.Sucesso"] = commandResult.Sucesso.ToString();
+                propertiesLog["Result.Mensagem"] = commandResult.Mensagem;
             }
 
             if (exception != null)
@@ -64,7 +76,7 @@ namespace Shared.Helpers
 
         public static Dictionary<string, string> GetPropertiesController(string controller, string metodo, string colabLog = null)
         {
-            Dictionary<string, string> propriedadesLog = new Dictionary<string, string>()
+            var propriedadesLog = new Dictionary<string, string>()
             {
                 { "Controller", controller },
                 { "Método", metodo },
@@ -76,7 +88,7 @@ namespace Shared.Helpers
 
         public static Dictionary<string, string> GetPropertiesHandler(string handler, string metodo, string colabLog = null)
         {
-            Dictionary<string, string> propriedadesLog = new Dictionary<string, string>()
+            var propriedadesLog = new Dictionary<string, string>()
             {
                 { "Handler", handler },
                 { "Método", metodo },
@@ -88,9 +100,21 @@ namespace Shared.Helpers
 
         public static Dictionary<string, string> GetPropertiesRepository(string repository, string metodo, string colabLog = null)
         {
-            Dictionary<string, string> propriedadesLog = new Dictionary<string, string>()
+            var propriedadesLog = new Dictionary<string, string>()
             {
                 { "Repository", repository },
+                { "Método", metodo },
+                { "ColabLog", colabLog },
+            };
+
+            return propriedadesLog;
+        }
+
+        public static Dictionary<string, string> GetPropertiesService(string repository, string metodo, string colabLog = null)
+        {
+            var propriedadesLog = new Dictionary<string, string>()
+            {
+                { "Servico", repository },
                 { "Método", metodo },
                 { "ColabLog", colabLog },
             };

@@ -4,6 +4,7 @@ using Domain.Usefuls;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Commands;
+using Shared.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -29,22 +30,34 @@ namespace WebApi.Controllers
         [HttpPost("v1/Obter/Acesso")]
         [ProducesResponseType(typeof(CommandResult<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(CommandResult<string>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ObterAcessoAsync([FromBody] CommandObterAcesso command)
+        public IActionResult ObterAcesso([FromBody] CommandObterAcesso command)
         {
             var result = new CommandResult<string>();
-            command.ValidarCommand();
+            var propertiesLog = HelperLog.GetPropertiesController(nameof(TokenController), nameof(ObterAcesso));
 
-            if (command.IsValid)
+            try
             {
-                var retornoRegra = await _handlerToken.ObterAcessoAsync(command);
-                result.AtualizarRetorno(retornoRegra);
-            }
-            else
-            {
-                result.Mensagem = command.Notifications.RetornarMensagemParametrosInvalidos("Não foi possível obter o token de acesso");
-            }
+                HelperLog.AddTrackEvent("Validando o command", propertiesLog);
+                command.ValidarCommand();
 
-            return Ok(result);
+                if (command.IsValid)
+                {
+                    HelperLog.AddTrackEvent("Chamando a regra de negócio", propertiesLog);
+                    result = _handlerToken.ObterAcesso(command);
+                }
+                else
+                {
+                    result.Mensagem = command.Notifications.RetornarMensagemParametrosInvalidos("Não foi possível obter o token de acesso");
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                result.AtualizarRetornoError(ex, "Ocorreu um erro ao obter o token de acesso");
+                HelperLog.AddTrackEventException(ex, result, propertiesLog);
+                return BadRequest(result);
+            }
         }
 
 

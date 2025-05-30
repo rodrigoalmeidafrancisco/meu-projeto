@@ -14,9 +14,9 @@ namespace WebApi.Configurations
             {
                 options.Path = @"elmah";
                 options.SqlServerDatabaseSchemaName = "Logs";
-                options.ApplicationName = $"{SettingsShared.Aplicacao.NomeAplicacao} (WebApi)";
-                options.OnPermissionCheck = context => SettingsShared.Aplicacao._Ambiente.Equals("PROD", StringComparison.OrdinalIgnoreCase) == false;
-                options.ConnectionString = SettingsShared.ConnectionStrings.Default;
+                options.ApplicationName = $"{SettingApp.Aplicacao.NomeAplicacao} (WebApi)";
+                options.OnPermissionCheck = context => SettingApp.Aplicacao._Ambiente.Equals("PROD", StringComparison.OrdinalIgnoreCase) == false;
+                options.ConnectionString = SettingApp.ConnectionStrings.Default;
                 options.Notifiers.Add(new ElmahNotification());
                 options.Filters.Add(new ElmahErrorFilter());
             });
@@ -43,7 +43,7 @@ namespace WebApi.Configurations
 
         public class ElmahNotification : IErrorNotifier
         {
-            public string Name => $"{SettingsShared.Aplicacao.NomeAplicacao} (WebApi)";
+            public string Name => $"{SettingApp.Aplicacao.NomeAplicacao} (WebApi)";
 
             public void Notify(Error error)
             {

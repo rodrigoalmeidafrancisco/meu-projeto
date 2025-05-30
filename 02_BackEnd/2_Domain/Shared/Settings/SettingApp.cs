@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Shared.Settings
 {
-    public static class SettingsShared
+    public static class SettingApp
     {
         /*====================================================================================================================
         | ********************* Declaração da propriedade ********************                                               |                  
@@ -21,45 +21,25 @@ namespace Shared.Settings
         |                                                                                                                    |
         ====================================================================================================================*/
 
-        private static IServiceCollection _serviceCollection;
-
-        public static void Start(IConfiguration configuration, IServiceCollection services, string webRootPath)
+        public static void Start(IConfiguration configuration, string webRootPath)
         {
-            _serviceCollection = services;
-
-            Aplicacao = new SettingsSharedAplicacao();
+            Aplicacao = new SettingAppAplicacao();
             configuration.GetSection("Aplicacao").Bind(Aplicacao);
 
-            AppSettings = new SettingsSharedAppSettings();
+            ApplicationInsights = new SettingAppApplicationInsights();
+            configuration.GetSection("ApplicationInsights").Bind(ApplicationInsights);
+
+            AppSettings = new SettingAppAppSettings();
             configuration.GetSection("AppSettings").Bind(AppSettings);
 
-            ConnectionStrings = new SettingsSharedConnectionStrings();
+            ConnectionStrings = new SettingAppConnectionStrings();
             configuration.GetSection("ConnectionStrings").Bind(ConnectionStrings);
         }
 
-        public static T GetService<T>()
-        {
-            ServiceProvider servicesProvider = _serviceCollection.BuildServiceProvider();
-
-            using (var scope = servicesProvider.CreateScope())
-            {
-                return scope.ServiceProvider.GetService<T>();
-            }
-        }
-
-        public static T GetRequiredService<T>()
-        {
-            ServiceProvider servicesProvider = _serviceCollection.BuildServiceProvider();
-
-            using (var scope = servicesProvider.CreateScope())
-            {
-                return scope.ServiceProvider.GetRequiredService<T>();
-            }
-        }
-
-        public static SettingsSharedAplicacao Aplicacao { get; set; }
-        public static SettingsSharedAppSettings AppSettings { get; set; }
-        public static SettingsSharedConnectionStrings ConnectionStrings { get; set; }
+        public static SettingAppAplicacao Aplicacao { get; set; }
+        public static SettingAppApplicationInsights ApplicationInsights { get; set; }
+        public static SettingAppAppSettings AppSettings { get; set; }
+        public static SettingAppConnectionStrings ConnectionStrings { get; set; }
 
     }
 }

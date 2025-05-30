@@ -1,17 +1,16 @@
 ﻿namespace Shared.DTOs
 {
-    public class DtoConstantes
+    public static class DtoConstantes
     {
-        public const string ClaimBase = "claimCustom/";
+        public const string ClaimBase = "claim/custom/";
 
-        //Dados do Colaborador Logado, para preencher os dados no login do WebSite
-        public static string ClaimNomeCompleto = $"{ClaimBase}/NomeCompleto";
-        public static string ClaimMatricula = $"{ClaimBase}/Matricula";
-        public static string ClaimEmail = $"{ClaimBase}/Email";
-        public static string ClaimRole = $"{ClaimBase}/Role";
-        public static string ClaimEstaSimulando = $"{ClaimBase}/EstaSimulando";
-        public static string ClaimUsuarioLog = $"{ClaimBase}/UsuarioLog";
-        public static string ClaimJsonDadosOriginais = $"{ClaimBase}/JsonDadosOriginais";
+        //Claims
+        public const string ClaimNome = $"{ClaimBase}/nome";
+        public const string ClaimMatricula = $"{ClaimBase}/matricula";
+        public const string ClaimEmail = $"{ClaimBase}/email";
+        public const string ClaimRole = $"{ClaimBase}/role";
+        public const string ClaimEstaSimulando = $"{ClaimBase}/estaSimulando";
+        public const string ClaimJsonDadosOriginais = $"{ClaimBase}/jsonDadosOriginais";
 
         //Chaves
         public const string ChaveCriptografia = "sfhjkhKJHg%dsf;54sf87sd;0^";

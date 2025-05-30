@@ -1,8 +1,8 @@
 ﻿namespace Shared.Settings
 {
-    public class SettingsSharedConnectionStrings
+    public class SettingAppConnectionStrings
     {
-        public SettingsSharedConnectionStrings()
+        public SettingAppConnectionStrings()
         {
 
         }

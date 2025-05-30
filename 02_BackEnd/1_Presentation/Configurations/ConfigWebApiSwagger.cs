@@ -12,7 +12,7 @@ namespace WebApi.Configurations
             {
                 x.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = SettingsShared.Aplicacao.NomeAplicacao,
+                    Title = SettingApp.Aplicacao.NomeAplicacao,
                     Version = "v1",
                     Description = "Documentação da API"
                 });
@@ -54,9 +54,9 @@ namespace WebApi.Configurations
             app.UseSwagger();
             app.UseSwaggerUI(x =>
             {
-                //x.DefaultModelsExpandDepth(-1);
-                x.SwaggerEndpoint("v1/swagger.json", SettingsShared.Aplicacao.NomeAplicacao);
-                x.DocumentTitle = SettingsShared.Aplicacao.NomeAplicacao;
+                x.DefaultModelsExpandDepth(-1);
+                x.SwaggerEndpoint("v1/swagger.json", SettingApp.Aplicacao.NomeAplicacao);
+                x.DocumentTitle = SettingApp.Aplicacao.NomeAplicacao;
             });
         }
 

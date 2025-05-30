@@ -2,6 +2,7 @@
 using Domain.Contracts.Handlers;
 using Shared.Commands;
 using Shared.Helpers;
+using Shared.Settings;
 
 namespace Domain.Handlers
 {
@@ -12,13 +13,13 @@ namespace Domain.Handlers
 
         }
 
-        public async Task<CommandResult<string>> ObterAcessoAsync(CommandObterAcesso command)
+        public CommandResult<string> ObterAcesso(CommandObterAcesso command)
         {
             var result = new CommandResult<string>
             {
                 Sucesso = true,
                 Mensagem = "Token obtido com sucesso!",
-                Data = HelperToken.CreateToken(["MeuProjeto.API"])
+                Data = HelperToken.CreateToken(SettingApp.Aplicacao._Ambiente, ["MeuProjeto.API"])
             };
 
             return result;

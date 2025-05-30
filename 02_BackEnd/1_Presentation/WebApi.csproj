@@ -22,8 +22,11 @@
 	<ItemGroup>
 		<ProjectReference Include="..\2_Domain\Domain\Domain.csproj" />
 		<ProjectReference Include="..\2_Domain\Shared\Shared.csproj" />
-		<ProjectReference Include="..\3_Infra\DataExternal\DataExternal.csproj" />
-		<ProjectReference Include="..\3_Infra\Data\Data.csproj" />
+		<ProjectReference Include="..\3_Infra\Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\images\" />
 	</ItemGroup>
 
 </Project>

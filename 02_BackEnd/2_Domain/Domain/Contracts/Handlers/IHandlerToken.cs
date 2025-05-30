@@ -5,6 +5,6 @@ namespace Domain.Contracts.Handlers
 {
     public interface IHandlerToken
     {
-        Task<CommandResult<string>> ObterAcessoAsync(CommandObterAcesso command);
+        CommandResult<string> ObterAcesso(CommandObterAcesso command);
     }
 }

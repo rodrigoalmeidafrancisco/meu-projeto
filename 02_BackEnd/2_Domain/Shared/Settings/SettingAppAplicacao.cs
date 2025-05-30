@@ -1,8 +1,8 @@
 ﻿namespace Shared.Settings
 {
-    public class SettingsSharedAplicacao
+    public class SettingAppAplicacao
     {
-        public SettingsSharedAplicacao()
+        public SettingAppAplicacao()
         {
             AcessoPolicy = [];
         }

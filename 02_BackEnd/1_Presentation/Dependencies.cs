@@ -1,6 +1,9 @@
-﻿using Domain.Contracts.Handlers;
+﻿using Data.Contexts;
+using Domain.Contracts.Handlers;
 using Domain.Handlers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Shared.Settings;
 
 namespace WebApi
 {
@@ -14,16 +17,15 @@ namespace WebApi
         public static void Start(IServiceCollection services)
         {
             //*************************** Contexto Aplicação ***************************
-            //services.AddDbContext<ContextDefault>(options => options.UseSqlServer(SettingsShared.ConnectionStrings.AutenticacaoTJSP)
-            //   .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
-            //);
+            services.AddDbContext<ContextDefault>(options => options.UseSqlServer(SettingApp.ConnectionStrings.Default)
+               .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
+            );
 
             //Faz a dependência do ImemoryCache, caso seja necessário utilizar no projeto
             services.AddSingleton<IMemoryCache, MemoryCache>();
 
             Domain(services);
             Data(services);
-            DataExternal(services);
             EventBus(services);
         }
 
@@ -34,12 +36,6 @@ namespace WebApi
         }
 
         private static void Data(IServiceCollection services)
-        {
-            //Deixar em ordem alfabética
-            //services.AddScoped<IRepository..., Repository...>();
-        }
-
-        private static void DataExternal(IServiceCollection services)
         {
             //Deixar em ordem alfabética
             //services.AddScoped<IRepository..., Repository...>();

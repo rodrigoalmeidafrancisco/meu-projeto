@@ -97,7 +97,7 @@ namespace WebApi.Configurations
             app.UseAuthorization(); // Roles
 
             //Informa a utilização do Elmah
-            app.UseElmah();
+            //app.UseElmah();
         }
 
     }

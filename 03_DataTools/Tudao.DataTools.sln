@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MeuProjeto", "MeuProjeto\MeuProjeto.sqlproj", "{715F71E4-55C2-41C5-98AC-2D0B34290605}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Tudao", "Tudao\Tudao.sqlproj", "{715F71E4-55C2-41C5-98AC-2D0B34290605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
